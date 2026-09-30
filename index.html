@@ -8,6 +8,56 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* ========================= WACHTWOORDSCHERM ========================= */ 
+#password-screen { 
+  position: fixed;
+  inset: 0;
+  background: var(--paper, #fdf0f4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  padding: 20px;
+  text-align: center;
+} 
+#password-screen h2 { 
+  margin-bottom: 20px;
+}
+#password-screen input {
+  width: min(300px, 90vw);
+  padding: 12px 15px;
+  border: 2px solid var(--line, #efd2de);
+  border-radius: 12px;
+  font: 16px var(--body, Arial, sans-serif);
+  margin-bottom: 10px;
+  outline: none;
+}
+#password-screen input:focus {
+  border-color: var(--berry, #b3184f);
+}
+#password-screen button {
+  border: 0;
+  background: var(--berry, #b3184f);
+  color: white;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font: 700 16px var(--body, Arial, sans-serif);
+  cursor: pointer;
+}
+#password-screen button:hover {
+  opacity: .9;
+}
+#error {
+  color: var(--berry, #b3184f);
+  font-size: 14px;
+  min-height: 21px;
+  margin-top: 8px;
+} 
+#website {
+  display: none;
+} 
+/* ========================= BESTAANDE WEBSITE ========================= */
 :root{
   --paper:#fdf0f4; --card:#ffffff; --ink:#3b1230; --soft:#7d5470;
   --berry:#b3184f; --berry-ink:#ffffff; --sun:#ffc445; --line:#efd2de;
@@ -102,6 +152,22 @@ p{margin:0 0 14px}
 </style>
 </head>
 <body>
+<!-- ========================= WACHTWOORDSCHERM ========================= -->
+<div id="password-screen">
+  <h2>100 dagen met jou ❤️</h2>
+  <input 
+    type="password" 
+    id="password"
+    placeholder="Wachtwoord" 
+    autocomplete="off" 
+  > 
+  <button onclick="checkPassword()">
+    Doorgaan 
+  </button> 
+  <p id="error"></p> 
+</div> 
+<!-- ========================= EIGEN WEBSITE ========================= --> 
+<div id="website"> 
 <main>
 
 <section class="hero">
@@ -445,6 +511,24 @@ coupons.forEach(function(c, i){
   });
   div.appendChild(t); div.appendChild(btn);
   box.appendChild(div);
+});
+/* ========================= WACHTWOORD ========================= */
+function checkPassword() { 
+  const password = document.getElementById("password").value; 
+  const error = document.getElementById("error"); 
+  if (password === "Nouky143") { 
+    document.getElementById("password-screen").style.display = "none"; 
+    document.getElementById("website").style.display = "block"; 
+  } else { 
+    error.textContent = "Verkeerd wachtwoord."; 
+    document.getElementById("password").value = ""; 
+  } 
+} 
+/* ENTER = DOORGAAN */ 
+document.getElementById("password").addEventListener("keydown", function(event) { 
+  if (event.key === "Enter") { 
+    checkPassword(); 
+  } 
 });
 </script>
 </body>
